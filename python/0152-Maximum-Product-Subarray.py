@@ -47,6 +47,37 @@ class Solution:
 
 
 
+# Bottom-up (Iterative) approach
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        n = len(nums)
+        # Initialize the minProd, maxProd, and dp arrays
+        minProd = [None] * n
+        maxProd = [None] * n
+        dp = [None] * n
+        # Set the base cases for each array
+        minProd[0] = maxProd[0] = dp[0] = nums[0]
+        # Explore every subproblem past the base case
+        for i in range(1, n):
+            # Second recursive formulation
+            minProd[i] = min(
+                minProd[i - 1] * nums[i],
+                maxProd[i - 1] * nums[i],
+                nums[i])
+            # Third recursive formulation
+            maxProd[i] = max(
+                minProd[i - 1] * nums[i],
+                maxProd[i - 1] * nums[i],
+                nums[i])
+            # First recursive formulation
+            dp[i] = max(dp[i - 1], maxProd[i])
+        # return the original problem, n
+        return dp[n - 1]
+
+
+
+
+
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         res = nums[0]
